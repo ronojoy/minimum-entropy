@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>Adieu, Matlab</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=114f68b7d8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic%7COpen+Sans:700,400" />
+
+    
+    <meta name="generator" content="Ghost 0.4" />
+<link rel="alternate" type="application/rss+xml" title="Minimum entropy" href="../rss/index.html">
+<link rel="canonical" href="http://my-ghost-blog.com/adieu-matlab/" />
+</head>
+<body class="post-template">
+
+    
+    
+
+
+
+<main class="content" role="main">
+
+    <article class="post">
+
+        
+        <header class="post-header">
+            <a class="blog-logo" href="http://my-ghost-blog.com">
+                
+                    <span class="blog-title">Minimum entropy</span>
+                
+            </a>
+        </header>
+
+        
+        
+
+            <span class="post-meta"><time datetime="2014-03-22">22 Mar 2014</time> </span>
+
+            <h1 class="post-title">Adieu, Matlab</h1>
+
+            <section class="post-content">
+                <p>This post is about how I said goodbye to Matlab and replaced it with open source tools built using the Python programming language. </p>
+
+<h2 id="matlabthegoodbadandugly">Matlab : the good, bad and ugly</h2>
+
+<p>Matlab is a great environment for the beginner because of its interactive interpreter and excellent plotting features. These let the beginner focus on the task at hand, which may be to experiment with a numerical algorithm or to plot data, rather than worry about compilers, libraries, and the Unix shell. Matlab provides a nice array-oriented syntax that avoids loops and allows for very succint code. The integrated development environment, with a debugger and a profiler, allows hassle-free programming. The large number of toolboxes, both commercial and those contributed by the user community, cover large areas of science and engineering. If Matlab's native m-code is not fast enough for the needs at hand, C or Java functions can be called from the Matlab interpreter. </p>
+
+<p>While these features undoubtedly contribute to Matlab's popularity, a more experienced programmer will soon feel constrained by Matlab's drawbacks. For me, these are</p>
+
+<ul>
+<li><p><strong>A poor programming language</strong> : the Matlab (MATrix LABoratory) language was designed to work with vectors and matrices and, unsurprisingly, is rather bad at handling other data types. Features like object orientation are an afterthought and, so, do not sit at all well with the rest of the language. </p></li>
+<li><p><strong>No web deployable interface</strong> : 2013 marked the year when more people accessed the internet through mobile devices than through laptops or desktops. Scientific computing must now be made available as a service, where the client can use a mobile device to access a high-performance computing platform, submit a computational task and receive the results, including visualizations, on the same device. Currently, Matlab offers now way of being deployable on the web as a service. Its Java GUI and muPAD notebook
+are 1990s technology struggling to keep up with the demands of 21st century computing. </p></li>
+<li><p><strong>Poor support for multi-core and multi-thread computing</strong> : On that same vein, Matlab was built in the era of the single core processor. Performance was driven by increasing clock speeds and FLOPS mattered the most. Today, clock speeds have saturated, multi-core and multi-thread is the norm, and performance tends to be limited by memory access and not FLOPS. We will need to radically redesign numerical algorithms to leverage the change in hardware. I doubt Matlab to be the platform around which we will see these changes. The support that Matlab has for multi-core and multi-thread numerics comes from expensive add-on toolboxes which are priced per core. The cost of deployment turns out to be a good fraction of the hardware cost. I find this pricing model unacceptable. </p></li>
+<li><p><strong>Closed source and expensive</strong> : the internals of Matlab and many of the toolboxes are closed source. This is a real obstacle to open, reproducible science. It also presents a barrier to the large-scale adoption of scientific computing at the undergraduate level in countries with small per-capita educational budgets.   </p></li>
+</ul>
+
+<p>A lot of experienced programmers absolutely love to hate Matlab. Here is a whole blog <a href="http://abandonmatlab.wordpress.com">devoted to exposing Matlab warts and getting people to abandon it</a>. "It is not good for you" it warns!</p>
+
+<p>What is good for you, though, is a modern, object-oriented programming language that is open source, free of cost, allows code sharing and integrates well with the web. For me, the computing ecosystem built around the Python programming language is the most attractive of such options. </p>
+
+<h2 id="pythonnumpyscipyandfriends">Python, Numpy, Scipy and friends</h2>
+
+<p>To describe Python, let me quote Guido von Rossum's executive summary of the language he created: </p>
+
+<blockquote>
+  <p>Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python's simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. The Python interpreter and the extensive standard library are available in source or binary form without charge for all major platforms, and can be freely distributed. </p>
+  
+  <p>Often, programmers fall in love with Python because of the increased productivity it provides. Since there is no compilation step, the edit-test-debug cycle is incredibly fast. Debugging Python programs is easy: a bug or bad input will never cause a segmentation fault. Instead, when the interpreter discovers an error, it raises an exception. When the program doesn't catch the exception, the interpreter prints a stack trace. A source level debugger allows inspection of local and global variables, evaluation of arbitrary expressions, setting breakpoints, stepping through the code a line at a time, and so on. The debugger is written in Python itself, testifying to Python's introspective power. On the other hand, often the quickest way to debug a program is to add a few print statements to the source: the fast edit-test-debug cycle makes this simple approach very effective. </p>
+</blockquote>
+
+<p>The high-level built in data structures in Python do not include vectors and matrices, the very ones that are needed for numerical computing and are the basic data types in Matlab. This gap has been filled by <a href="http://numpy.scipy.org/">Numpy</a> which brings to Python the ndarray data type and universal functions, ufuncs, that accept and return ndarrays. Quoting the <a href="http://en.wikipedia.org/wiki/NumPy">Wikipedia entry on Numpy</a> :</p>
+
+<blockquote>
+  <p>NumPy is an extension to the Python programming language, adding support for large, multi-dimensional arrays and matrices, along with a large library of high-level mathematical functions to operate on these arrays.</p>
+</blockquote>
+
+<p>Put Python and Numpy together and you have the basic tools for building scientific libraries. <a href="http://www.scipy.org/">Scipy</a> is a collection of such libraries :  </p>
+
+<blockquote>
+  <p>SciPy contains modules for optimization, linear algebra, integration, interpolation, special functions, FFT, signal and image processing, ODE solvers and other tasks common in science and engineering.</p>
+</blockquote>
+
+<p>Scipy provides most of the functionality of Matlab. The analogue of Matlab toolboxes are scikits, packages that extend the functionality of scipy. In addition, there is a large collection of  software contributed by a vibrant community. </p>
+
+<h2 id="bundles">Bundles</h2>
+
+<h2 id="ides">IDEs</h2>
+
+<ul>
+<li><strong>Spyder</strong></li>
+<li><strong>IEP</strong></li>
+</ul>
+
+<h2 id="visualization">Visualization</h2>
+
+<ul>
+<li><strong>Matplotlib</strong> </li>
+<li><strong>ggplot</strong></li>
+<li><strong>matplotlib for D3</strong></li>
+<li><strong>Mayavi</strong></li>
+</ul>
+
+<h2 id="dataanalysis">Data analysis</h2>
+
+<ul>
+<li><strong>Pandas</strong></li>
+<li><strong>scikits-learn</strong></li>
+<li><strong>pytables</strong></li>
+</ul>
+
+<h2 id="interfacingtotheweb">Interfacing to the web</h2>
+
+<p>Ipython is an enhanced interpreter for Python that lets you be more productive. The Ipython Notebook interface is just awesome ! </p>
+
+<h2 id="matropolisthemovie">Matropolis : the movie</h2>
+
+<p>After that long post it is time for something less heavy, nay, positively light: geek humour! <a href="https://www.youtube.com/user/jamiealexandre">Jamie Alexandre</a> makes creative reuse of Fritz Lang's Metropolis to tell the story of Matlab and Python. It is 15 minutes long, but patience pays, as Guido van Rossum makes an appearence in the last minute. Enjoy!</p>
+
+<iframe width="480" height="360" src="http://www.youtube.com/embed/1lBeungEnx4" frameborder="0" allowfullscreen></iframe>
+            </section>
+
+            <footer class="post-footer">
+
+                <section class="author">
+                    <h4>Ronojoy Adhikari</h4>
+                    <p></p>
+                </section>
+
+                <section class="share">
+                    <h4>Share this post</h4>
+                    <a class="icon-twitter" href="http://twitter.com/share?text=Adieu%2C%20Matlab&url=http://my-ghost-blog.com/adieu-matlab/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/adieu-matlab/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://my-ghost-blog.com/adieu-matlab/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+
+            </footer>
+
+        
+
+    </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="http://my-ghost-blog.com/rss/"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="http://my-ghost-blog.com/">Minimum entropy</a> &copy; 2014 &bull; All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a></section>
+        </div>
+    </footer>
+
+    
+    <script src="../shared/vendor/jquery/jquery.js?v=114f68b7d8"></script>
+
+    
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=114f68b7d8"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=114f68b7d8"></script>
+
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  
+   <script type="text/x-mathjax-config">  
+    MathJax.Hub.Config({
+         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>  
+</body>
+</html>

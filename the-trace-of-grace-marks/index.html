@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>The trace of grace</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=114f68b7d8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic%7COpen+Sans:700,400" />
+
+    
+    <meta name="generator" content="Ghost 0.4" />
+<link rel="alternate" type="application/rss+xml" title="Minimum entropy" href="../rss/index.html">
+<link rel="canonical" href="http://my-ghost-blog.com/the-trace-of-grace-marks/" />
+</head>
+<body class="post-template">
+
+    
+    
+
+
+
+<main class="content" role="main">
+
+    <article class="post">
+
+        
+        <header class="post-header">
+            <a class="blog-logo" href="http://my-ghost-blog.com">
+                
+                    <span class="blog-title">Minimum entropy</span>
+                
+            </a>
+        </header>
+
+        
+        
+
+            <span class="post-meta"><time datetime="2014-03-22">22 Mar 2014</time> </span>
+
+            <h1 class="post-title">The trace of grace</h1>
+
+            <section class="post-content">
+                <p>An undergraduate student at Cornell University has downloaded the complete result of the ICSE and CBSE exams for the year 2013. The result, hosted on  <a href='http://www.cisce.ndtv.com/'>http://www.cisce.ndtv.com/</a> , could be downloaded in its entirety because the data was stored in a manner that is easily revealed by studying the source code of the web page. This exploit, if it can be so called, raises concerns about privacy of information, the impropriety of a private news channel hosting the results of a nationwide public exam, and most seriously, the allegation of marks tampering.</p>
+
+<p>Having access to scorecards of all the candidates who appeared in the examination Debarghya Das, the Cornell student, computed the histogram of the exam scores for each subject and  noticed an anomaly : some scores would never occur in the histograms. Specifically, the scores 36, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 56, 57, 59, 61, 63, 65, 67, 68, 70, 71, 73, 75, 77, 79, 81, 82, 84, 85, 87, 89, 91, and 93 were never obtained by any of the candidates in any of the subjects! A histogram with such holes would already be highly improbable for any one subject, but what takes it to the realms of impossibility is that such histograms appear for all subjects! Here is the histogram, taken from Debarghya Das’s blog.</p>
+
+<p><img src="../content/images/2014/Mar/histogramwithholes.png" alt="histogramswithholes" /></p>
+
+<p>What is the probability that such histograms can be obtained  by chance ? Intuitively, it appears to be very low, but it is quite easy to make a quantitative estimate by assuming the simplest form for the probability of the score distribution, namely that each score is equally likely. In Bayesian terms this would mean an uniform prior on the scores, equal to 1/100. Assuming that the candidates are all identical (in terms of preparation, ability and so on) and independent (they do not copy from each other and so on)  the probability that N_j candidates get a score of j can be taken to be (fittingly for what appears to be a fishy matter) Poisson distributed</p>
+
+<pre><code>\[ P(N_j) = \frac{\mu_j^{N_j} e^{-\mu_j}}{N_j !} \]
+</code></pre>
+
+<p>where \mu<em>j = \langle N</em>j \rangle is the expected number of candidates with score j.  For an exam with 100, 000 candidates the expected number in each bin is 1000. We now want the probability that there is a “hole” in the histogram, that is, there are no candidates with a score of j. This probability is</p>
+
+<pre><code>\[ \mbox{Prob(No candidates scored j}) = P(N_j = 0) = e^{-\mu_j} = e^{-1000} \approx 0 \]
+</code></pre>
+
+<p>The probability that there will be a hole in any one of the subject histograms is approximately 1 in 10 followed by a 1000 zeros, infinitesimally small. It is then entirely improbable that there will be holes at identical places for all the subject histograms. This can only point to some unspecified form of “data manipulation”. Finally, below is an example of a histogram from a nation wide multiple choice exam, taken by approximately 10,000 candidates. The candidates mark their answers on a machine-readable sheet and the final scores are generated without human intervention. Notice the complete absence of holes away from the tails of the histogram. <br />
+noholes</p>
+
+<p>Histogram obtained in a national exam, taken by approximately 10,000 candidates, where scores are generated without human intervention.</p>
+
+<p><img src="../content/images/2014/Mar/histogramwithoutholes.png" alt="histogramswithoutholes" /></p>
+
+<p>[Edit on  09.06. 13 : The Learning Point website has much more data on odd looking histograms from the board exams. Thanks to Seema Singh for this. ]</p>
+            </section>
+
+            <footer class="post-footer">
+
+                <section class="author">
+                    <h4>Ronojoy Adhikari</h4>
+                    <p></p>
+                </section>
+
+                <section class="share">
+                    <h4>Share this post</h4>
+                    <a class="icon-twitter" href="http://twitter.com/share?text=The%20trace%20of%20grace&url=http://my-ghost-blog.com/the-trace-of-grace-marks/"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://my-ghost-blog.com/the-trace-of-grace-marks/"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://my-ghost-blog.com/the-trace-of-grace-marks/"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+
+            </footer>
+
+        
+
+    </article>
+
+</main>
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="http://my-ghost-blog.com/rss/"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="http://my-ghost-blog.com/">Minimum entropy</a> &copy; 2014 &bull; All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a></section>
+        </div>
+    </footer>
+
+    
+    <script src="../shared/vendor/jquery/jquery.js?v=114f68b7d8"></script>
+
+    
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=114f68b7d8"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=114f68b7d8"></script>
+
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>  
+   <script type="text/x-mathjax-config">  
+    MathJax.Hub.Config({
+         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>  
+</body>
+</html>
